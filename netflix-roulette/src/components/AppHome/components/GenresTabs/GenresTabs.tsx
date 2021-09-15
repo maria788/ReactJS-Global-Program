@@ -7,10 +7,7 @@ interface GenresTabsProps {
   changeGenre(event: React.ChangeEvent<{}>, genre: string): void;
 }
 
-export const GenresTabs: React.FC<GenresTabsProps> = ({
-  selectedGenre,
-  changeGenre,
-}) => (
+export const GenresTabs = ({ selectedGenre, changeGenre }: GenresTabsProps) => (
   <Tabs value={selectedGenre} onChange={changeGenre}>
     {GENRES.map((genre) => (
       <Tab key={genre} value={genre} label={genre} />

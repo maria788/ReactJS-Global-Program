@@ -6,10 +6,7 @@ interface CounterButtonProps {
   content: string;
 }
 
-export const CounterButton: React.FC<CounterButtonProps> = ({
-  handleClick,
-  content,
-}) => (
+export const CounterButton = ({ handleClick, content }: CounterButtonProps) => (
   <Button onClick={handleClick} variant="contained" color="primary">
     {content}
   </Button>

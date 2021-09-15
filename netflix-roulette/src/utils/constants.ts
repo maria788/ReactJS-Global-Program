@@ -1,12 +1,12 @@
 export enum GenreType {
-    DOCUMENTARY = "Documentary",
-    COMEDY = "Comedy",
-    HORROR = "Horror",
-    CRIME = "Crime",
-    ALL = "All",
+  ALL = "All",
+  DOCUMENTARY = "Documentary",
+  COMEDY = "Comedy",
+  HORROR = "Horror",
+  CRIME = "Crime",
 }
 
-export const GENRES = [GenreType.ALL, GenreType.DOCUMENTARY, GenreType.COMEDY, GenreType.HORROR, GenreType.CRIME];
+export const GENRES = Object.values(GenreType);
 
 export const MOVIES = [
   {

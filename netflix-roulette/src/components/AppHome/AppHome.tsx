@@ -28,7 +28,7 @@ export class AppHome extends React.Component<{}, AppHomeState> {
 
   handleSearch(searchText: string) {
     const filteredMovies = MOVIES.filter((movie) =>
-      movie.title.includes(searchText)
+      movie.title?.toLowerCase().includes(searchText.trimStart().toLowerCase())
     );
     this.setState({ filteredMovies });
   }

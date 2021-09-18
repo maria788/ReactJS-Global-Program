@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { AppHome, Counter, HelloWorld } from "./components";
 import { Box } from "@material-ui/core";
 

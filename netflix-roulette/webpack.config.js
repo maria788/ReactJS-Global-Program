@@ -7,24 +7,24 @@ module.exports = (env, argv) => {
     const modeEnv = argv.mode || 'development'
     const isProd = modeEnv === 'production'
 
-    let optimizations = {
-        splitChunks: {
-            cacheGroups: {
-                vendors: {
-                    name: 'vendors',
-                    test: /node_modules/,
-                    chunks: 'all',
-                    enforce: true,
-                },
-            },
-        },
-        minimizer: [],
-    };
+    let optimizations = {};
 
     if (isProd) {
-        optimizations.minimizer.push(new UglifyJsPlugin());
-        optimizations.moduleIds = 'deterministic';
-        optimizations.runtimeChunk = 'single';
+        optimizations = {
+            splitChunks: {
+                cacheGroups: {
+                    vendors: {
+                        name: 'vendors',
+                        test: /node_modules/,
+                        chunks: 'all',
+                        enforce: true,
+                    },
+                },
+            },
+            minimizer: [new UglifyJsPlugin()],
+            moduleIds: 'deterministic',
+            runtimeChunk: 'single'
+        }
     }
 
     return {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { GenresTabs, MoviesList, ResultCount, MoviesSort } from "./components";
-import { GenreType, Movie } from "../../../../utils";
+import { GenreType, Movie } from "@utils";
 import { CatalogContainer, FiltersContainer } from "./Catalog.styles";
 
 interface CatalogProps {

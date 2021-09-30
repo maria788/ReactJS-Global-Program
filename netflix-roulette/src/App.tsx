@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { PageContainer } from "./App.styles";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { HomePage } from "./pages";
-import { theme } from "./utils";
+import { theme } from "@utils";
 
 const App = () => (
   <ErrorBoundary>

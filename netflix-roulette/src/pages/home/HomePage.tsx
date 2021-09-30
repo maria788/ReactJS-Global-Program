@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Catalog, Header } from "./components";
-import { GenreType, Movie, MOVIES } from "../../utils";
+import { GenreType, Movie, MOVIES } from "@utils";
 
 export const HomePage = () => {
   const [filteredMovies, setFilteredMovies] = React.useState<Movie[]>(MOVIES);

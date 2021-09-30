@@ -1,31 +1,29 @@
 import styled from "styled-components";
-import { Theme } from "../../../../../../utils";
 
 export const Tabs = styled.div`
   display: flex;
   height: 50px;
 `;
 
-export const Tab = styled.button`
-  border: 0;
-  outline: 0;
-  padding: 0 ${(props) => props.theme.fontSize};
-  border-bottom: ${({
-    isSelected,
-    theme,
-  }: {
-    isSelected: boolean;
-    theme?: Theme;
-  }) =>
-    isSelected
-      ? `3px solid ${theme.palette.red};`
-      : `1px solid  ${theme.palette.grey}`};
-  text-transform: uppercase;
-  background: none;
-  color: ${(props) => props.theme.palette.white};
-  cursor: pointer;
+export const Tab = styled.button(({ theme, isSelected }) => {
+  const {
+    fontSize,
+    palette: { red, grey, white },
+  } = theme;
+  const borderBottom = isSelected ? `3px solid ${red}` : `1px solid ${grey}`;
 
-  :hover {
-    border-bottom: 3px solid ${(props) => props.theme.palette.red};
-  }
-`;
+  return {
+    border: 0,
+    outline: 0,
+    padding: `0 ${fontSize}`,
+    borderBottom,
+    textTransform: "uppercase",
+    background: "none",
+    color: `${white}`,
+    cursor: "pointer",
+
+    "&:hover": {
+      borderBottom: `3px solid ${red}`,
+    },
+  };
+});

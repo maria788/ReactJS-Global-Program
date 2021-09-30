@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Movie } from "../../../../../../../utils";
+import { dateStringToDate, Movie } from "@utils";
 import {
   MovieCardContainer,
   MovieDescription,
@@ -14,7 +14,7 @@ interface MovieCardProps {
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
   const { title, genres, release_date, poster_path } = movie;
-  const year = new Date(release_date).getFullYear();
+  const year = new Date(dateStringToDate(release_date)).getFullYear();
 
   return (
     <MovieCardContainer>

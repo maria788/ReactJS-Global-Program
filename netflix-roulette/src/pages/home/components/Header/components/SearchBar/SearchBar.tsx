@@ -25,6 +25,7 @@ export const SearchBar = ({ handleSearch }: CounterProps) => {
           type="search"
           placeholder="What do you want to watch?"
           onChange={handleInputChange}
+          value={searchValue}
         />
         <Button onClick={() => handleSearch(searchValue)}>Search</Button>
       </div>

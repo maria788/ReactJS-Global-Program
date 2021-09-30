@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MovieCardContainer = styled.div`
   flex-direction: column;
   margin: 0 20px 40px 0;
-  color: #979797;
+  color: ${(props) => props.theme.palette.light};
 `;
 
 export const TitleRow = styled.div`
@@ -14,7 +14,7 @@ export const TitleRow = styled.div`
 
 export const MovieYear = styled.div`
   padding: 5px 10px;
-  border: 1px solid #979797;
+  border: 1px solid ${(props) => props.theme.palette.light};
   border-radius: 4px;
 `;
 

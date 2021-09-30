@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GENRES } from "../../../../../../utils";
+import { GENRES } from "@utils";
 import { Tabs, Tab } from "./GenresTabs.styles";
 
 interface GenresTabsProps {

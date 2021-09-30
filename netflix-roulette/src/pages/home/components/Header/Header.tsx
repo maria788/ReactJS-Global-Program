@@ -1,7 +1,7 @@
 import * as React from "react";
 import { HeaderContainer, TopPanel } from "./Header.styles";
 import { AddMovieButton, SearchBar } from "./components";
-import { AppLogo } from "../../../../ui";
+import { AppLogo } from "@ui/AppLogo";
 
 interface HeaderProps {
   handleSearch: (searchText: string) => void;

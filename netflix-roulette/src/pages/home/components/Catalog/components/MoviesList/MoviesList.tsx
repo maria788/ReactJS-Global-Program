@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Movie } from "../../../../../../utils";
+import { Movie } from "@utils";
 import { MovieCard } from "./MovieCard";
 import { MoviesListContainer } from "./MoviesList.styles";
 

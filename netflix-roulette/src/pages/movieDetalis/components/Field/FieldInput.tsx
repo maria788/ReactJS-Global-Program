@@ -23,7 +23,7 @@ export const FieldInput = ({
         isWide={isWide}
         type={type}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
       />
     </FieldInputContainer>
   );

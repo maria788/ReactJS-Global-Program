@@ -5,17 +5,23 @@ import {
   SearchBarText,
   Input,
 } from "./SearchBar.styles";
+import { useHomePageData } from "@data/HomePageDataProvider";
 
-interface CounterProps {
-  handleSearch: (searchValue: string) => void;
-}
+export const SearchBar = () => {
+  const { setSearchText } = useHomePageData();
+  const [inputValue, setInputValue] = React.useState<string>("");
 
-export const SearchBar = ({ handleSearch }: CounterProps) => {
-  const [searchValue, setSearchValue] = React.useState<string>("");
+  const handleInputChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value);
+    },
+    []
+  );
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  };
+  const handleSearch = React.useCallback(
+    () => setSearchText(inputValue),
+    [inputValue]
+  );
 
   return (
     <SearchBarContainer>
@@ -25,9 +31,9 @@ export const SearchBar = ({ handleSearch }: CounterProps) => {
           type="search"
           placeholder="What do you want to watch?"
           onChange={handleInputChange}
-          value={searchValue}
+          value={inputValue}
         />
-        <Button onClick={() => handleSearch(searchValue)}>Search</Button>
+        <Button onClick={handleSearch}>Search</Button>
       </div>
     </SearchBarContainer>
   );

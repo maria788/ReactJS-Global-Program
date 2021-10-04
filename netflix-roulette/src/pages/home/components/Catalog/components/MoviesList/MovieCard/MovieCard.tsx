@@ -1,30 +1,36 @@
 import * as React from "react";
-import { dateStringToDate, Movie } from "@utils";
+import { getYearFromDateString, Movie } from "@utils";
 import {
   MovieCardContainer,
   MovieDescription,
+  TitleRow,
   MovieGenres,
   MovieYear,
-  TitleRow,
 } from "./MovieCard.styles";
 import { DropdownMenu } from "../DropdownMenu";
+import { useHomePageData } from "@data/HomePageDataProvider";
 
 interface MovieCardProps {
   movie: Movie;
-  handleMovieEdit: (movie: Movie) => void;
-  handleMovieDelete: (movie: Movie) => void;
 }
 
-export const MovieCard = ({
-  movie,
-  handleMovieEdit,
-  handleMovieDelete,
-}: MovieCardProps) => {
+export const MovieCard = ({ movie }: MovieCardProps) => {
+  const { setMovieToView, setMovieToDelete, setMovieToEdit } =
+    useHomePageData();
   const { title, genres, release_date, poster_path } = movie;
-  const year = new Date(dateStringToDate(release_date)).getFullYear();
+  const year = getYearFromDateString(release_date);
 
-  const handleEdit = () => handleMovieEdit(movie);
-  const handleDelete = () => handleMovieDelete(movie);
+  const handleEdit = React.useCallback(() => {
+    setMovieToEdit(movie);
+  }, [movie]);
+
+  const handleDelete = React.useCallback(() => {
+    setMovieToDelete(movie);
+  }, [movie]);
+
+  const handleView = React.useCallback(() => {
+    setMovieToView(movie);
+  }, [movie]);
 
   return (
     <MovieCardContainer>
@@ -37,6 +43,7 @@ export const MovieCard = ({
           ((e.target as HTMLImageElement).src =
             "../../../../../../../../assets/not_found.png")
         }
+        onClick={handleView}
       />
       <DropdownMenu handleEdit={handleEdit} handleDelete={handleDelete} />
       <MovieDescription>

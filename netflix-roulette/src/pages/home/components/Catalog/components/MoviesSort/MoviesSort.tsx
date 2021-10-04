@@ -5,7 +5,7 @@ export const MoviesSort = () => {
   return (
     <div>
       sort by
-      <Select>
+      <Select defaultValue="releaseDate">
         <Option value="releaseDate">Release Date</Option>
       </Select>
     </div>

@@ -11,7 +11,8 @@
     "paths": {
       "App": ["src/App"],
       "@utils/*": ["src/utils/*"],
-      "@ui/*": ["src/ui/*"]
+      "@ui/*": ["src/ui/*"],
+      "@data/*": ["src/data/*"]
     }
   },
   "exclude": [

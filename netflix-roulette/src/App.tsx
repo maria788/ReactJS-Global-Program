@@ -1,21 +1,18 @@
-import React from "react";
-import { AppHome, Counter, HelloWorld } from "./components";
-import { Box } from "@material-ui/core";
+import * as React from "react";
+import { ThemeProvider } from "styled-components";
+import { PageContainer } from "./App.styles";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { HomePage } from "./pages";
+import { theme } from "@utils";
 
-function App() {
-  return (
-      <Box
-          mt={3}
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-      >
-        <HelloWorld name="World" />
-        <Counter />
-        <AppHome />
-      </Box>
-  );
-}
+const App = () => (
+  <ErrorBoundary>
+    <ThemeProvider theme={theme}>
+      <PageContainer>
+        <HomePage />
+      </PageContainer>
+    </ThemeProvider>
+  </ErrorBoundary>
+);
 
 export default App;

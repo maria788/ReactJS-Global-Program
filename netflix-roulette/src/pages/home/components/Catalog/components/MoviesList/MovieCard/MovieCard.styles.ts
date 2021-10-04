@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const MovieCardContainer = styled.div`
+  position: relative;
   flex-direction: column;
   margin: 0 20px 40px 0;
   color: ${(props) => props.theme.palette.light};

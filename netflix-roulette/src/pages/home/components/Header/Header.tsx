@@ -5,14 +5,18 @@ import { AppLogo } from "@ui/AppLogo";
 
 interface HeaderProps {
   handleSearch: (searchText: string) => void;
+  handleAddMovieDialogOpen: () => void;
 }
 
-export const Header = ({ handleSearch }: HeaderProps) => {
+export const Header = ({
+  handleSearch,
+  handleAddMovieDialogOpen,
+}: HeaderProps) => {
   return (
     <HeaderContainer>
       <TopPanel>
         <AppLogo />
-        <AddMovieButton />
+        <AddMovieButton handleAddMovieDialogOpen={handleAddMovieDialogOpen} />
       </TopPanel>
       <SearchBar handleSearch={handleSearch} />
     </HeaderContainer>

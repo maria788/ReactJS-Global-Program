@@ -7,12 +7,16 @@ interface CatalogProps {
   movies: Movie[];
   selectedGenre: GenreType;
   handleGenreChange: (event: React.ChangeEvent<{}>, genre: GenreType) => void;
+  handleMovieEdit: (movie: Movie) => void;
+  handleMovieDelete: (movie: Movie) => void;
 }
 
 export const Catalog = ({
   movies,
   selectedGenre,
   handleGenreChange,
+  handleMovieEdit,
+  handleMovieDelete,
 }: CatalogProps) => (
   <CatalogContainer>
     <FiltersContainer>
@@ -23,6 +27,10 @@ export const Catalog = ({
       <MoviesSort />
     </FiltersContainer>
     <ResultCount resultCount={movies.length} />
-    <MoviesList movies={movies} />
+    <MoviesList
+      movies={movies}
+      handleMovieEdit={handleMovieEdit}
+      handleMovieDelete={handleMovieDelete}
+    />
   </CatalogContainer>
 );

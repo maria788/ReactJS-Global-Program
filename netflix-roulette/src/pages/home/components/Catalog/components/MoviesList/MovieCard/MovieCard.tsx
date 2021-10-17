@@ -7,14 +7,24 @@ import {
   MovieYear,
   TitleRow,
 } from "./MovieCard.styles";
+import { DropdownMenu } from "../DropdownMenu";
 
 interface MovieCardProps {
   movie: Movie;
+  handleMovieEdit: (movie: Movie) => void;
+  handleMovieDelete: (movie: Movie) => void;
 }
 
-export const MovieCard = ({ movie }: MovieCardProps) => {
+export const MovieCard = ({
+  movie,
+  handleMovieEdit,
+  handleMovieDelete,
+}: MovieCardProps) => {
   const { title, genres, release_date, poster_path } = movie;
   const year = new Date(dateStringToDate(release_date)).getFullYear();
+
+  const handleEdit = () => handleMovieEdit(movie);
+  const handleDelete = () => handleMovieDelete(movie);
 
   return (
     <MovieCardContainer>
@@ -28,6 +38,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             "../../../../../../../../assets/not_found.png")
         }
       />
+      <DropdownMenu handleEdit={handleEdit} handleDelete={handleDelete} />
       <MovieDescription>
         <TitleRow>
           <h3>{title}</h3>

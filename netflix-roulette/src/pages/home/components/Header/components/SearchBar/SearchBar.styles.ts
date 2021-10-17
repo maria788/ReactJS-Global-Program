@@ -26,7 +26,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 4px;
   color: #fff;
-  background-color: #f65261;
+  background-color: ${(props) => props.theme.palette.red};
 `;
 
 export const SearchBarText = styled.div`

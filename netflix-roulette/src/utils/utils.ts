@@ -9,11 +9,20 @@ export const getYearFromDateString = (dateString: string) =>
   new Date(dateStringToDate(dateString)).getFullYear();
 
 export const formatDuration = (duration: number) => {
+  const roundedDuration = Math.floor(duration);
   const hours =
-    duration > MINUTES_IN_HOUR
-      ? `${Math.floor(duration / MINUTES_IN_HOUR)}h`
+    roundedDuration >= MINUTES_IN_HOUR
+      ? `${Math.floor(roundedDuration / MINUTES_IN_HOUR)}h`
       : "";
-  const minutes =
-    duration > MINUTES_IN_HOUR ? duration % MINUTES_IN_HOUR : Number(duration);
-  return duration && `${hours} ${minutes} min`;
+
+  let minutes;
+  if (Math.floor(roundedDuration % MINUTES_IN_HOUR) === 0) {
+    minutes = "";
+  } else if (roundedDuration > MINUTES_IN_HOUR) {
+    minutes = `${Math.floor(roundedDuration % MINUTES_IN_HOUR)} min`;
+  } else {
+    minutes = `${roundedDuration} min`;
+  }
+
+  return roundedDuration && `${hours} ${minutes}`;
 };

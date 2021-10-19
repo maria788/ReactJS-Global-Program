@@ -11,17 +11,11 @@ export const SearchBar = () => {
   const { setSearchText } = useHomePageData();
   const [inputValue, setInputValue] = React.useState<string>("");
 
-  const handleInputChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value);
-    },
-    []
-  );
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
 
-  const handleSearch = React.useCallback(
-    () => setSearchText(inputValue),
-    [inputValue]
-  );
+  const handleSearch = () => setSearchText(inputValue);
 
   return (
     <SearchBarContainer>

@@ -9,6 +9,7 @@ import {
 } from "./MovieCard.styles";
 import { DropdownMenu } from "../DropdownMenu";
 import { useHomePageData } from "@data/HomePageDataProvider";
+import { FALLBACK_IMG_SRC } from "@utils/constants";
 
 interface MovieCardProps {
   movie: Movie;
@@ -19,6 +20,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     useHomePageData();
   const { title, genres, release_date, poster_path } = movie;
   const year = getYearFromDateString(release_date);
+  const [imageSrc, setImageSrc] = React.useState(poster_path);
 
   const handleEdit = React.useCallback(() => {
     setMovieToEdit(movie);
@@ -32,17 +34,16 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
     setMovieToView(movie);
   }, [movie]);
 
+  const handleImageError = () => setImageSrc(FALLBACK_IMG_SRC);
+
   return (
     <MovieCardContainer>
       <img
-        src={poster_path}
+        src={imageSrc}
         alt={title}
         width={323}
         height={486}
-        onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-          ((e.target as HTMLImageElement).src =
-            "../../../../../../../../assets/not_found.png")
-        }
+        onError={handleImageError}
         onClick={handleView}
       />
       <DropdownMenu handleEdit={handleEdit} handleDelete={handleDelete} />

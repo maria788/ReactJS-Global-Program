@@ -122,3 +122,5 @@ export const MOVIES = [
     runtime: 94,
   },
 ];
+
+export const FALLBACK_IMG_SRC = "../../../../../../../../assets/not_found.png";

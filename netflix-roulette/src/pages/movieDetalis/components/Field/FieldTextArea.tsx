@@ -15,7 +15,7 @@ export const FieldTextArea = ({
   return (
     <FieldInputContainer>
       <Label>{label}</Label>
-      <TextArea placeholder={placeholder} value={value} rows={10} />
+      <TextArea placeholder={placeholder} defaultValue={value} rows={10} />
     </FieldInputContainer>
   );
 };

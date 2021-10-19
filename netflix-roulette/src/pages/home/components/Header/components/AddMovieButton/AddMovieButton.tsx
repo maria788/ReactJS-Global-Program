@@ -1,15 +1,12 @@
 import * as React from "react";
 import { StyledAddMovieButton } from "./AddMovieButton.styles";
+import { useHomePageData } from "@data/HomePageDataProvider";
 
-interface AddMovieButtonProps {
-  handleAddMovieDialogOpen: () => void;
-}
+export const AddMovieButton = () => {
+  const { setIsAddMovieDialogVisible } = useHomePageData();
 
-export const AddMovieButton = ({
-  handleAddMovieDialogOpen,
-}: AddMovieButtonProps) => {
   return (
-    <StyledAddMovieButton onClick={handleAddMovieDialogOpen}>
+    <StyledAddMovieButton onClick={() => setIsAddMovieDialogVisible(true)}>
       + add movie
     </StyledAddMovieButton>
   );

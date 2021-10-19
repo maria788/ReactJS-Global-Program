@@ -2,23 +2,25 @@ import * as React from "react";
 import { HeaderContainer, TopPanel } from "./Header.styles";
 import { AddMovieButton, SearchBar } from "./components";
 import { AppLogo } from "@ui/AppLogo";
+import { MoviePanel } from "./components/MoviePanel";
+import { useHomePageData } from "@data/HomePageDataProvider";
 
-interface HeaderProps {
-  handleSearch: (searchText: string) => void;
-  handleAddMovieDialogOpen: () => void;
-}
+export const Header = () => {
+  const { movieToView } = useHomePageData();
 
-export const Header = ({
-  handleSearch,
-  handleAddMovieDialogOpen,
-}: HeaderProps) => {
   return (
-    <HeaderContainer>
-      <TopPanel>
-        <AppLogo />
-        <AddMovieButton handleAddMovieDialogOpen={handleAddMovieDialogOpen} />
-      </TopPanel>
-      <SearchBar handleSearch={handleSearch} />
+    <HeaderContainer isImgBackground={movieToView === null}>
+      {movieToView ? (
+        <MoviePanel movie={movieToView} />
+      ) : (
+        <>
+          <TopPanel>
+            <AppLogo />
+            <AddMovieButton />
+          </TopPanel>
+          <SearchBar />
+        </>
+      )}
     </HeaderContainer>
   );
 };

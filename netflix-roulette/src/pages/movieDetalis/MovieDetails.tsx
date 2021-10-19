@@ -1,22 +1,19 @@
 import * as React from "react";
 import { DialogColumnsContainer, DialogColumn } from "./MovieDetails.styles";
 import { FieldInput, FieldTextArea, FieldSelect } from "./components";
-import { Movie } from "../../utils";
 import { ButtonContainer, DialogHeader } from "@ui/CommonComponents";
 import { Button } from "@ui/Button";
+import { useHomePageData } from "@data/HomePageDataProvider";
 import { Dialog } from "@ui/Dialog";
 
-interface MovieDetailsProps {
-  isDialogVisible: boolean;
-  handleDialogClose: () => void;
-  movie: Movie | null;
-}
+export const MovieDetails = () => {
+  const {
+    movieToEdit,
+    isAddMovieDialogVisible,
+    setIsAddMovieDialogVisible,
+    setMovieToEdit,
+  } = useHomePageData();
 
-export const MovieDetails = ({
-  isDialogVisible,
-  handleDialogClose,
-  movie,
-}: MovieDetailsProps) => {
   const {
     title,
     poster_path,
@@ -25,12 +22,17 @@ export const MovieDetails = ({
     vote_average,
     runtime,
     overview,
-  } = movie || {};
+  } = movieToEdit || {};
+
+  const handleDialogClose = React.useCallback(() => {
+    isAddMovieDialogVisible && setIsAddMovieDialogVisible(false);
+    movieToEdit && setMovieToEdit(null);
+  }, [isAddMovieDialogVisible, movieToEdit]);
 
   return (
-    isDialogVisible && (
+    (isAddMovieDialogVisible || movieToEdit) && (
       <Dialog width={980} height={760} handleDialogClose={handleDialogClose}>
-        <DialogHeader>{movie ? "Edit movie" : "Add movie"}</DialogHeader>
+        <DialogHeader>{movieToEdit ? "Edit movie" : "Add movie"}</DialogHeader>
         <DialogColumnsContainer>
           <DialogColumn>
             <FieldInput

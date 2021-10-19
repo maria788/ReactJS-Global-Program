@@ -1,14 +1,13 @@
 import * as React from "react";
 import { ResultCountCounter } from "./ResultCount.styles";
+import { useHomePageData } from "@data/HomePageDataProvider";
 
-interface ResultCountProps {
-  resultCount: number;
-}
+export const ResultCount = () => {
+  const { movies } = useHomePageData();
 
-export const ResultCount = ({ resultCount }: ResultCountProps) => {
   return (
     <ResultCountCounter>
-      <b>{resultCount}</b> movies found
+      <b>{movies.length}</b> movies found
     </ResultCountCounter>
   );
 };

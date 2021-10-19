@@ -16,14 +16,14 @@ export const FieldSelect = ({
   return (
     <FieldInputContainer>
       <Label>{label}</Label>
-      <Select>
-        <option value="" selected disabled>
+      <Select defaultValue={(value && value[0]) || ""}>
+        <option value="" disabled>
           {placeholder}
         </option>
         {GENRES.map(
-          (genre) =>
+          (genre: GenreType) =>
             genre !== GenreType.ALL && (
-              <option value={genre} selected={value?.indexOf(genre) >= 0}>
+              <option key={genre} value={genre}>
                 {genre}
               </option>
             )

@@ -4,12 +4,15 @@ import { PageContainer } from "./App.styles";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { HomePage } from "./pages";
 import { theme } from "@utils";
+import { HomePageDataProvider } from "@data/HomePageDataProvider";
 
 const App = () => (
   <ErrorBoundary>
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <HomePage />
+        <HomePageDataProvider>
+          <HomePage />
+        </HomePageDataProvider>
       </PageContainer>
     </ThemeProvider>
   </ErrorBoundary>

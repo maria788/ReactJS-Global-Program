@@ -1,42 +1,50 @@
 import * as React from "react";
-import { dateStringToDate, Movie } from "@utils";
+import { getYearFromDateString, Movie } from "@utils";
 import {
   MovieCardContainer,
   MovieDescription,
+  TitleRow,
   MovieGenres,
   MovieYear,
-  TitleRow,
 } from "./MovieCard.styles";
 import { DropdownMenu } from "../DropdownMenu";
+import { useHomePageData } from "@data/HomePageDataProvider";
+import { FALLBACK_IMG_SRC } from "@utils/constants";
 
 interface MovieCardProps {
   movie: Movie;
-  handleMovieEdit: (movie: Movie) => void;
-  handleMovieDelete: (movie: Movie) => void;
 }
 
-export const MovieCard = ({
-  movie,
-  handleMovieEdit,
-  handleMovieDelete,
-}: MovieCardProps) => {
+export const MovieCard = ({ movie }: MovieCardProps) => {
+  const { setMovieToView, setMovieToDelete, setMovieToEdit } =
+    useHomePageData();
   const { title, genres, release_date, poster_path } = movie;
-  const year = new Date(dateStringToDate(release_date)).getFullYear();
+  const year = getYearFromDateString(release_date);
+  const [imageSrc, setImageSrc] = React.useState(poster_path);
 
-  const handleEdit = () => handleMovieEdit(movie);
-  const handleDelete = () => handleMovieDelete(movie);
+  const handleEdit = React.useCallback(() => {
+    setMovieToEdit(movie);
+  }, [movie]);
+
+  const handleDelete = React.useCallback(() => {
+    setMovieToDelete(movie);
+  }, [movie]);
+
+  const handleView = React.useCallback(() => {
+    setMovieToView(movie);
+  }, [movie]);
+
+  const handleImageError = () => setImageSrc(FALLBACK_IMG_SRC);
 
   return (
     <MovieCardContainer>
       <img
-        src={poster_path}
+        src={imageSrc}
         alt={title}
         width={323}
         height={486}
-        onError={(e: React.SyntheticEvent<HTMLImageElement>) =>
-          ((e.target as HTMLImageElement).src =
-            "../../../../../../../../assets/not_found.png")
-        }
+        onError={handleImageError}
+        onClick={handleView}
       />
       <DropdownMenu handleEdit={handleEdit} handleDelete={handleDelete} />
       <MovieDescription>

@@ -1,20 +1,22 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.header`
-  display: flex;
-  flex-direction: column;
-  height: 630px;
-  background-color: rgba(0, 0, 0, 0.5);
-  background-image: url("../../../../../assets/header.png");
-  background-position: center top;
-  background-size: 100% auto;
-`;
+export const HeaderContainer = styled.header(({ theme, isImgBackground }) => ({
+  display: "flex",
+  flexDirection: "column",
+  height: "630px",
+  padding: `${theme.fontSize} 10%`,
+  backgroundColor: isImgBackground
+    ? "rgba(0, 0, 0, 0.5)"
+    : theme.palette.darkGrey,
+  backgroundImage: isImgBackground && `url("../../../../../assets/header.png")`,
+  backgroundPosition: "center top",
+  backgroundSize: "100% auto",
+}));
 
 export const TopPanel = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  margin: 0 auto 50px;
-  padding-top: ${(props) => props.theme.fontSize};
+  width: 100%;
+  margin: 0 auto;
 `;

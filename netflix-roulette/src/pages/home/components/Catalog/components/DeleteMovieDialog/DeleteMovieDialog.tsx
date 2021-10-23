@@ -2,11 +2,18 @@ import * as React from "react";
 import { ButtonContainer, DialogHeader } from "@ui/CommonComponents";
 import { DialogContent } from "./DeleteMovieDialog.styles";
 import { Button } from "@ui/Button";
-import { useHomePageData } from "@data/HomePageDataProvider";
 import { Dialog } from "@ui/Dialog";
+import { Movie } from "@utils/interface";
 
-export const DeleteMovieDialog = () => {
-  const { movieToDelete, setMovieToDelete } = useHomePageData();
+interface DeleteMovieDialogProps {
+  movieToDelete: Movie;
+  setMovieToDelete: (movieToEdit: Movie) => void;
+}
+
+export const DeleteMovieDialog = ({
+  movieToDelete,
+  setMovieToDelete,
+}: DeleteMovieDialogProps) => {
   const handleDialogClose = () => setMovieToDelete(null);
 
   return (

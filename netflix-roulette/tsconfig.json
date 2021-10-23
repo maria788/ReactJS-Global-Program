@@ -9,10 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "App": ["src/App"],
       "@utils/*": ["src/utils/*"],
       "@ui/*": ["src/ui/*"],
-      "@data/*": ["src/data/*"]
+      "@store/*": ["src/store/*"]
     }
   },
   "exclude": [

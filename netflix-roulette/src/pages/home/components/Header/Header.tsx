@@ -1,26 +1,30 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { HeaderContainer, TopPanel } from "./Header.styles";
-import { AddMovieButton, SearchBar } from "./components";
+import { AddMovieButton, MoviePanel, SearchBar } from "./components";
 import { AppLogo } from "@ui/AppLogo";
-import { MoviePanel } from "./components/MoviePanel";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import { MoviesState } from "@store/interfaces";
 
-export const Header = () => {
-  const { movieToView } = useHomePageData();
+interface HeaderProps extends Partial<MoviesState> {}
 
-  return (
-    <HeaderContainer isImgBackground={movieToView === null}>
-      {movieToView ? (
-        <MoviePanel movie={movieToView} />
-      ) : (
-        <>
-          <TopPanel>
-            <AppLogo />
-            <AddMovieButton />
-          </TopPanel>
-          <SearchBar />
-        </>
-      )}
-    </HeaderContainer>
-  );
-};
+const HeaderComponent = ({ movieToView }: HeaderProps) => (
+  <HeaderContainer isImgBackground={movieToView === null}>
+    {movieToView ? (
+      <MoviePanel movie={movieToView} />
+    ) : (
+      <>
+        <TopPanel>
+          <AppLogo />
+          <AddMovieButton />
+        </TopPanel>
+        <SearchBar />
+      </>
+    )}
+  </HeaderContainer>
+);
+
+const mapStateToProps = ({ moviesState }: { moviesState: MoviesState }) => ({
+  movieToView: moviesState.movieToView,
+});
+
+export const Header = connect(mapStateToProps, null)(HeaderComponent);

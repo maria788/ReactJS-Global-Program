@@ -1,18 +1,19 @@
 import * as React from "react";
+import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import { PageContainer } from "./App.styles";
 import { ErrorBoundary } from "./ErrorBoundary";
-import { HomePage } from "./pages";
 import { theme } from "@utils";
-import { HomePageDataProvider } from "@data/HomePageDataProvider";
+import { HomePage } from "./pages";
+import store from "@store/store";
 
 const App = () => (
   <ErrorBoundary>
     <ThemeProvider theme={theme}>
       <PageContainer>
-        <HomePageDataProvider>
+        <Provider store={store}>
           <HomePage />
-        </HomePageDataProvider>
+        </Provider>
       </PageContainer>
     </ThemeProvider>
   </ErrorBoundary>

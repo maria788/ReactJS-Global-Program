@@ -1,21 +1,31 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import {
   Button,
   SearchBarContainer,
   SearchBarText,
   Input,
 } from "./SearchBar.styles";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import { filterMovies } from "@store/actions";
+import {
+  FilterMovies,
+  FilterMoviesPayload,
+  MoviesState,
+} from "@store/interfaces";
 
-export const SearchBar = () => {
-  const { setSearchText } = useHomePageData();
+interface SearchBarProps extends Partial<MoviesState> {
+  searchMovie: (payload: FilterMoviesPayload) => FilterMovies;
+}
+
+const SearchBarComponent = ({ searchMovie, selectedGenre }: SearchBarProps) => {
   const [inputValue, setInputValue] = React.useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  const handleSearch = () => setSearchText(inputValue);
+  const handleSearch = () =>
+    searchMovie({ searchText: inputValue, selectedGenre });
 
   return (
     <SearchBarContainer>
@@ -32,3 +42,16 @@ export const SearchBar = () => {
     </SearchBarContainer>
   );
 };
+
+const mapStateToProps = ({ moviesState }: { moviesState: MoviesState }) => ({
+  selectedGenre: moviesState.selectedGenre,
+});
+
+const mapDispatchToProps = {
+  searchMovie: filterMovies,
+};
+
+export const SearchBar = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchBarComponent);

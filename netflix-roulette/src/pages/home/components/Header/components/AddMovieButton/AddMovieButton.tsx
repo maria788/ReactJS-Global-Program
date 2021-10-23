@@ -1,13 +1,36 @@
 import * as React from "react";
+import { connect } from "react-redux";
+
 import { StyledAddMovieButton } from "./AddMovieButton.styles";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import {
+  SetIsAddMovieDialogVisible,
+  SetIsAddMovieDialogVisiblePayload,
+} from "@store/interfaces";
+import { setIsAddMovieDialogVisible } from "@store/actions";
 
-export const AddMovieButton = () => {
-  const { setIsAddMovieDialogVisible } = useHomePageData();
+interface AddMovieButtonProps {
+  setIsAddMovieDialogVisible: (
+    payload: SetIsAddMovieDialogVisiblePayload
+  ) => SetIsAddMovieDialogVisible;
+}
 
-  return (
-    <StyledAddMovieButton onClick={() => setIsAddMovieDialogVisible(true)}>
-      + add movie
-    </StyledAddMovieButton>
-  );
+const AddMovieButtonComponent = ({
+  setIsAddMovieDialogVisible,
+}: AddMovieButtonProps) => (
+  <StyledAddMovieButton
+    onClick={() =>
+      setIsAddMovieDialogVisible({ isAddMovieDialogVisible: true })
+    }
+  >
+    + add movie
+  </StyledAddMovieButton>
+);
+
+const mapDispatchToProps = {
+  setIsAddMovieDialogVisible,
 };
+
+export const AddMovieButton = connect(
+  null,
+  mapDispatchToProps
+)(AddMovieButtonComponent);

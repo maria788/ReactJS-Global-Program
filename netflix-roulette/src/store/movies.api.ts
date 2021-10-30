@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Movie } from "@utils/interface";
+
 const rootUrl = "http://localhost:4000/";
 
 interface FilteredAndSortedMoviesParams {
@@ -14,7 +16,7 @@ const instance = axios.create({
   baseURL: rootUrl,
 });
 
-const { get: getMovieData } = instance;
+const { get: getMovieData, post: postMovieData, put: putMovieData, delete: deleteMovieData } = instance;
 
 export const getMovies = () => getMovieData("movies");
 
@@ -29,3 +31,10 @@ export const getSortedMovies = (paramsData: SortedMoviesParams) =>
   getMovieData("movies", {
     params: { sortOrder: "desk", ...paramsData },
   });
+
+export const addMovie = (movie: Movie) => postMovieData("movies", movie);
+
+export const editMovie = (movie: Movie) => putMovieData("movies", movie);
+
+export const deleteMovie = (movieId: number) =>
+    deleteMovieData("movies/" + movieId);

@@ -11,7 +11,7 @@ import {
 import { DropdownMenu } from "../DropdownMenu";
 import { FALLBACK_IMG_SRC } from "@utils/constants";
 import {
-  setMovieToDelete,
+  setMovieIdToDelete,
   setMovieToEdit,
   setMovieToView,
 } from "@store/actions";
@@ -27,7 +27,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
   const [imageSrc, setImageSrc] = React.useState(poster_path);
 
   const handleEdit = () => dispatch(setMovieToEdit({ movie }));
-  const handleDelete = () => dispatch(setMovieToDelete({ movie }));
+  const handleDelete = () => dispatch(setMovieIdToDelete({ movieId: movie.id }));
   const handleView = () => dispatch(setMovieToView({ movie }));
   const handleImageError = () => setImageSrc(FALLBACK_IMG_SRC);
 

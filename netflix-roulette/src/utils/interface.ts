@@ -1,5 +1,5 @@
 export interface Movie {
-  id: number;
+  id?: number;
   title: string;
   tagline: string;
   vote_average: number;
@@ -11,4 +11,24 @@ export interface Movie {
   revenue: number;
   genres: string[];
   runtime: number;
+}
+
+export interface FormErrors {
+  title?: string;
+  release_date?: string;
+  poster_path?: string;
+  overview?: string;
+  genres?: string;
+  runtime?: string;
+  vote_average?: string;
+}
+
+export interface FormData {
+  title: string;
+  release_date: string;
+  poster_path: string;
+  overview: string;
+  genres: string;
+  runtime: number;
+  vote_average: string;
 }

@@ -1,5 +1,11 @@
 import * as React from "react";
-import { FieldInputContainer, Input, Label } from "./FieldInput.styles";
+import { useFormikContext } from "formik";
+import {
+  ErrorMessage,
+  FieldInputContainer,
+  Input,
+  Label,
+} from "./FieldInput.styles";
 
 interface FieldInputProps {
   label: string;
@@ -7,6 +13,8 @@ interface FieldInputProps {
   placeholder?: string;
   type?: string;
   isWide?: boolean;
+  name: string;
+  isRequired?: boolean;
 }
 
 export const FieldInput = ({
@@ -15,16 +23,30 @@ export const FieldInput = ({
   placeholder,
   type = "text",
   isWide = false,
+  name,
+  isRequired = false,
 }: FieldInputProps) => {
+  const { handleChange, handleBlur, errors, touched } = useFormikContext();
+
   return (
-    <FieldInputContainer>
-      <Label>{label}</Label>
-      <Input
-        isWide={isWide}
-        type={type}
-        placeholder={placeholder}
-        defaultValue={value}
-      />
-    </FieldInputContainer>
+    <>
+      <FieldInputContainer>
+        <Label>
+          {label} {isRequired && "*"}
+        </Label>
+        <Input
+          isWide={isWide}
+          type={type}
+          placeholder={placeholder}
+          defaultValue={value}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name={name}
+        />
+        {errors[name] && touched[name] && (
+          <ErrorMessage>{errors[name]}</ErrorMessage>
+        )}
+      </FieldInputContainer>
+    </>
   );
 };

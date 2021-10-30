@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DialogContainer = styled.div`
+export const DialogContainer = styled.form`
   position: fixed;
   width: 100%;
   height: 100%;

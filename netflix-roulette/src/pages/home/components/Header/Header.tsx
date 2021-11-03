@@ -1,12 +1,14 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { HeaderContainer, TopPanel } from "./Header.styles";
-import { AddMovieButton, SearchBar } from "./components";
+import { AddMovieButton, MoviePanel, SearchBar } from "./components";
 import { AppLogo } from "@ui/AppLogo";
-import { MoviePanel } from "./components/MoviePanel";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import { RootState } from "@store/reducers";
 
 export const Header = () => {
-  const { movieToView } = useHomePageData();
+  const movieToView = useSelector(
+    ({ moviesState }: RootState) => moviesState.movieToView
+  );
 
   return (
     <HeaderContainer isImgBackground={movieToView === null}>

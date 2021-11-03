@@ -1,12 +1,18 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
+
 import { StyledAddMovieButton } from "./AddMovieButton.styles";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import { setIsAddMovieDialogVisible } from "@store/actions";
 
 export const AddMovieButton = () => {
-  const { setIsAddMovieDialogVisible } = useHomePageData();
+  const dispatch = useDispatch();
 
   return (
-    <StyledAddMovieButton onClick={() => setIsAddMovieDialogVisible(true)}>
+    <StyledAddMovieButton
+      onClick={() =>
+        dispatch(setIsAddMovieDialogVisible({ isAddMovieDialogVisible: true }))
+      }
+    >
       + add movie
     </StyledAddMovieButton>
   );

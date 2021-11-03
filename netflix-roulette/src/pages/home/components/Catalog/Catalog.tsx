@@ -1,5 +1,11 @@
-import * as React from "react";
-import { GenresTabs, MoviesList, ResultCount, MoviesSort } from "./components";
+import React from "react";
+import {
+  GenresTabs,
+  MoviesList,
+  ResultCount,
+  MoviesSort,
+  DeleteMovieDialog,
+} from "./components";
 import { CatalogContainer, FiltersContainer } from "./Catalog.styles";
 
 export const Catalog = () => (
@@ -10,5 +16,6 @@ export const Catalog = () => (
     </FiltersContainer>
     <ResultCount />
     <MoviesList />
+    <DeleteMovieDialog />
   </CatalogContainer>
 );

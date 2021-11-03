@@ -1,11 +1,16 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { GENRES } from "@utils";
 import { Tabs, Tab } from "./GenresTabs.styles";
-import { useHomePageData } from "@data/HomePageDataProvider";
 import { GenreType } from "@utils/constants";
+import { filterMovies } from "@store/actions";
+import { RootState } from "@store/reducers";
 
 export const GenresTabs = () => {
-  const { selectedGenre, setSelectedGenre } = useHomePageData();
+  const { selectedGenre, searchText } = useSelector(
+    ({ moviesState }: RootState) => moviesState
+  );
+  const dispatch = useDispatch();
 
   return (
     <Tabs>
@@ -13,7 +18,9 @@ export const GenresTabs = () => {
         <Tab
           key={genre}
           isSelected={selectedGenre === genre}
-          onClick={() => setSelectedGenre(genre)}
+          onClick={() =>
+            dispatch(filterMovies({ selectedGenre: genre, searchText }))
+          }
         >
           {genre}
         </Tab>

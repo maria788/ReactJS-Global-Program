@@ -2,12 +2,17 @@ import * as React from "react";
 import { ButtonContainer, DialogHeader } from "@ui/CommonComponents";
 import { DialogContent } from "./DeleteMovieDialog.styles";
 import { Button } from "@ui/Button";
-import { useHomePageData } from "@data/HomePageDataProvider";
 import { Dialog } from "@ui/Dialog";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@store/reducers";
+import { setMovieToDelete } from "@store/actions";
 
 export const DeleteMovieDialog = () => {
-  const { movieToDelete, setMovieToDelete } = useHomePageData();
-  const handleDialogClose = () => setMovieToDelete(null);
+  const movieToDelete = useSelector(
+    ({ moviesState }: RootState) => moviesState.movieToDelete
+  );
+  const dispatch = useDispatch();
+  const handleDialogClose = () => dispatch(setMovieToDelete({ movie: null }));
 
   return (
     movieToDelete && (

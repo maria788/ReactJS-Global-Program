@@ -1,16 +1,17 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
 import { AppLogo } from "@ui/AppLogo";
 import { Movie } from "@utils/interface";
 import { MovieVew } from "../MovieVew";
 import { TopPanel } from "../../Header.styles";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import { setMovieToView } from "@store/actions";
 
-interface MoviePanel {
+interface MoviePanelProps {
   movie: Movie;
 }
 
-export const MoviePanel = ({ movie }: MoviePanel) => {
-  const { setMovieToView } = useHomePageData();
+export const MoviePanel = ({ movie }: MoviePanelProps) => {
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -21,7 +22,7 @@ export const MoviePanel = ({ movie }: MoviePanel) => {
           width={29}
           height={30}
           alt="Search Button"
-          onClick={() => setMovieToView(null)}
+          onClick={() => dispatch(setMovieToView({ movie: null }))}
         />
       </TopPanel>
       <MovieVew movie={movie} />

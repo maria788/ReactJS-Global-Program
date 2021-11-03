@@ -1,9 +1,12 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 import { ResultCountCounter } from "./ResultCount.styles";
-import { useHomePageData } from "@data/HomePageDataProvider";
+import { RootState } from "@store/reducers";
 
 export const ResultCount = () => {
-  const { movies } = useHomePageData();
+  const movies = useSelector(
+    ({ moviesState }: RootState) => moviesState.movies
+  );
 
   return (
     <ResultCountCounter>

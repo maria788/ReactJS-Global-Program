@@ -1,18 +1,33 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MovieCard } from "./MovieCard";
 import { MoviesListContainer } from "./MoviesList.styles";
-import { useFilteredMoviesList } from "../../../../../../hooks/useFilteredMovies";
+import { fetchMoviesRequest } from "@store/actions";
+import { RootState } from "@store/reducers";
 
 export const MoviesList = () => {
-  const filteredMovies = useFilteredMoviesList();
+  const { loading, movies, error } = useSelector(
+    ({ moviesState }: RootState) => moviesState
+  );
+  const dispatch = useDispatch();
 
-  return filteredMovies.length ? (
+  React.useEffect(() => {
+    dispatch(fetchMoviesRequest());
+  }, []);
+
+  if (loading) {
+    return <>Loading....</>;
+  }
+
+  if (error) {
+    return <>No results</>;
+  }
+
+  return (
     <MoviesListContainer>
-      {filteredMovies.map((movie) => (
+      {movies.map((movie) => (
         <MovieCard movie={movie} key={movie.id} />
       ))}
     </MoviesListContainer>
-  ) : (
-    <>No results</>
   );
 };

@@ -41,7 +41,7 @@ module.exports = (env, argv) => {
       alias: {
         "@utils": path.resolve(__dirname, "src/utils"),
         "@ui": path.resolve(__dirname, "src/ui"),
-        "@data": path.resolve(__dirname, "src/data"),
+        "@store": path.resolve(__dirname, "src/store"),
       },
     },
     module: {

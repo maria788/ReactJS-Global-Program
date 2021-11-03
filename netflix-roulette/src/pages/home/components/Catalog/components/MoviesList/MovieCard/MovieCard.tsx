@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
 import { getYearFromDateString, Movie } from "@utils";
 import {
   MovieCardContainer,
@@ -8,32 +9,26 @@ import {
   MovieYear,
 } from "./MovieCard.styles";
 import { DropdownMenu } from "../DropdownMenu";
-import { useHomePageData } from "@data/HomePageDataProvider";
 import { FALLBACK_IMG_SRC } from "@utils/constants";
+import {
+  setMovieToDelete,
+  setMovieToEdit,
+  setMovieToView,
+} from "@store/actions";
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
-  const { setMovieToView, setMovieToDelete, setMovieToEdit } =
-    useHomePageData();
+  const dispatch = useDispatch();
   const { title, genres, release_date, poster_path } = movie;
   const year = getYearFromDateString(release_date);
   const [imageSrc, setImageSrc] = React.useState(poster_path);
 
-  const handleEdit = React.useCallback(() => {
-    setMovieToEdit(movie);
-  }, [movie]);
-
-  const handleDelete = React.useCallback(() => {
-    setMovieToDelete(movie);
-  }, [movie]);
-
-  const handleView = React.useCallback(() => {
-    setMovieToView(movie);
-  }, [movie]);
-
+  const handleEdit = () => dispatch(setMovieToEdit({ movie }));
+  const handleDelete = () => dispatch(setMovieToDelete({ movie }));
+  const handleView = () => dispatch(setMovieToView({ movie }));
   const handleImageError = () => setImageSrc(FALLBACK_IMG_SRC);
 
   return (

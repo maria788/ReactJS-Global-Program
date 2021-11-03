@@ -1,19 +1,34 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { DialogColumnsContainer, DialogColumn } from "./MovieDetails.styles";
 import { FieldInput, FieldTextArea, FieldSelect } from "./components";
 import { ButtonContainer, DialogHeader } from "@ui/CommonComponents";
 import { Button } from "@ui/Button";
-import { useHomePageData } from "@data/HomePageDataProvider";
 import { Dialog } from "@ui/Dialog";
+import { setIsAddMovieDialogVisible, setMovieToEdit } from "@store/actions";
+import {
+  MoviesState,
+  SetIsAddMovieDialogVisible,
+  SetIsAddMovieDialogVisiblePayload,
+  SetMovieToEditOrView,
+  SetMovieToEditOrViewPayload,
+} from "@store/interfaces";
 
-export const MovieDetails = () => {
-  const {
-    movieToEdit,
-    isAddMovieDialogVisible,
-    setIsAddMovieDialogVisible,
-    setMovieToEdit,
-  } = useHomePageData();
+interface MovieDetailsProps extends Partial<MoviesState> {
+  setIsAddMovieDialogVisible: (
+    payload: SetIsAddMovieDialogVisiblePayload
+  ) => SetIsAddMovieDialogVisible;
+  setMovieToEdit: (
+    payload: SetMovieToEditOrViewPayload
+  ) => SetMovieToEditOrView;
+}
 
+const MovieDetailsComponent = ({
+  setIsAddMovieDialogVisible,
+  isAddMovieDialogVisible,
+  movieToEdit,
+  setMovieToEdit,
+}: MovieDetailsProps) => {
   const {
     title,
     poster_path,
@@ -26,7 +41,7 @@ export const MovieDetails = () => {
 
   const handleDialogClose = React.useCallback(() => {
     isAddMovieDialogVisible && setIsAddMovieDialogVisible(false);
-    movieToEdit && setMovieToEdit(null);
+    movieToEdit && setMovieToEdit({ movie: null });
   }, [isAddMovieDialogVisible, movieToEdit]);
 
   return (
@@ -82,3 +97,18 @@ export const MovieDetails = () => {
     )
   );
 };
+
+const mapStateToProps = ({ moviesState }: { moviesState: MoviesState }) => ({
+  isAddMovieDialogVisible: moviesState.isAddMovieDialogVisible,
+  movieToEdit: moviesState.movieToEdit,
+});
+
+const mapDispatchToProps = {
+  setIsAddMovieDialogVisible,
+  setMovieToEdit,
+};
+
+export const MovieDetails = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MovieDetailsComponent);

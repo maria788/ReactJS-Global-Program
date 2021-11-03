@@ -1,5 +1,5 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   SearchBarContainer,
@@ -7,17 +7,13 @@ import {
   Input,
 } from "./SearchBar.styles";
 import { filterMovies } from "@store/actions";
-import {
-  FilterMovies,
-  FilterMoviesPayload,
-  MoviesState,
-} from "@store/interfaces";
+import { RootState } from "@store/reducers";
 
-interface SearchBarProps extends Partial<MoviesState> {
-  searchMovie: (payload: FilterMoviesPayload) => FilterMovies;
-}
-
-const SearchBarComponent = ({ searchMovie, selectedGenre }: SearchBarProps) => {
+export const SearchBar = () => {
+  const selectedGenre = useSelector(
+    ({ moviesState }: RootState) => moviesState.selectedGenre
+  );
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = React.useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +21,7 @@ const SearchBarComponent = ({ searchMovie, selectedGenre }: SearchBarProps) => {
   };
 
   const handleSearch = () =>
-    searchMovie({ searchText: inputValue, selectedGenre });
+    dispatch(filterMovies({ searchText: inputValue, selectedGenre }));
 
   return (
     <SearchBarContainer>
@@ -42,16 +38,3 @@ const SearchBarComponent = ({ searchMovie, selectedGenre }: SearchBarProps) => {
     </SearchBarContainer>
   );
 };
-
-const mapStateToProps = ({ moviesState }: { moviesState: MoviesState }) => ({
-  selectedGenre: moviesState.selectedGenre,
-});
-
-const mapDispatchToProps = {
-  searchMovie: filterMovies,
-};
-
-export const SearchBar = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchBarComponent);

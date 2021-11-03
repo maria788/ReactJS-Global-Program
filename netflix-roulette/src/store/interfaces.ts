@@ -36,28 +36,9 @@ export interface FetchMoviesSuccess extends Action {
   payload: FetchMoviesSuccessPayload;
 }
 
-export interface FetchMoviesError extends Action {
-  payload: FetchMoviesErrorPayload;
-}
-
-export interface FilterMovies extends Action {
-  payload: FilterMoviesPayload;
-}
-
-export interface SortMovies extends Action {
-  payload: SortMoviesPayload;
-}
-
-export interface SetIsAddMovieDialogVisible extends Action {
-  payload: SetIsAddMovieDialogVisiblePayload;
-}
-
-export interface SetMovieToEditOrView extends Action {
-  payload: SetMovieToEditOrViewPayload;
-}
 interface AppState {
   loading: boolean;
-  movies: Movie[];
+  movies: Movie[] | [];
   error: string | null;
   selectedGenre: GenreType;
   searchText: string;
@@ -68,13 +49,10 @@ interface AppState {
 export interface MoviesState extends AppState {
   movieToEdit: Movie | null;
   movieToView: Movie | null;
-}
-
-interface MoviesActionsPayload extends AppState {
-  movie: Movie | null;
+  movieToDelete: Movie | null;
 }
 
 export interface MoviesActions {
   type: string;
-  payload: MoviesActionsPayload;
+  payload: any;
 }

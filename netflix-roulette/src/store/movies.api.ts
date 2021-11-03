@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const rootUrl = "http://localhost:4000/";
 
 interface FilteredAndSortedMoviesParams {
@@ -11,16 +10,22 @@ interface SortedMoviesParams {
   sortBy: string;
 }
 
-export const getMovies = () => axios.get(rootUrl + "movies");
+const instance = axios.create({
+  baseURL: rootUrl,
+});
+
+const { get: getMovieData } = instance;
+
+export const getMovies = () => getMovieData("movies");
 
 export const getFilteredAndSortedMovies = (
   paramsData: FilteredAndSortedMoviesParams
 ) =>
-  axios.get(rootUrl + "movies", {
+  getMovieData("movies", {
     params: { ...paramsData, searchBy: "title" },
   });
 
 export const getSortedMovies = (paramsData: SortedMoviesParams) =>
-  axios.get(rootUrl + "movies", {
+  getMovieData("movies", {
     params: { sortOrder: "desk", ...paramsData },
   });

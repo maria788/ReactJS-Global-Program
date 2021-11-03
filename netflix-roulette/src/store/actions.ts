@@ -1,17 +1,11 @@
 import {
-  FetchMoviesError,
   FetchMoviesErrorPayload,
   FetchMoviesRequest,
-  FetchMoviesSuccess,
   FetchMoviesSuccessPayload,
-  SetIsAddMovieDialogVisible,
   SetIsAddMovieDialogVisiblePayload,
-  FilterMovies,
   FilterMoviesPayload,
   SetMovieToEditOrViewPayload,
-  SetMovieToEditOrView,
   SortMoviesPayload,
-  SortMovies,
 } from "./interfaces";
 import { ActionNames } from "./data";
 
@@ -19,49 +13,49 @@ export const fetchMoviesRequest = (): FetchMoviesRequest => ({
   type: ActionNames.FETCH_MOVIES_REQUEST,
 });
 
-export const fetchMoviesSuccess = (
-  payload: FetchMoviesSuccessPayload
-): FetchMoviesSuccess => ({
+export const fetchMoviesSuccess = ({ movies }: FetchMoviesSuccessPayload) => ({
   type: ActionNames.FETCH_MOVIES_SUCCESS,
-  payload,
+  payload: movies,
 });
 
-export const fetchMoviesFailure = (
-  payload: FetchMoviesErrorPayload
-): FetchMoviesError => ({
+export const fetchMoviesFailure = ({ error }: FetchMoviesErrorPayload) => ({
   type: ActionNames.FETCH_MOVIES_ERROR,
-  payload,
+  payload: error,
 });
 
-export const filterMovies = (payload: FilterMoviesPayload): FilterMovies => ({
+export const filterMovies = ({
+  searchText,
+  selectedGenre,
+}: FilterMoviesPayload) => ({
   type: ActionNames.FILTER_MOVIES,
-  payload,
+  payload: { searchText, selectedGenre },
 });
 
-export const sortMovies = (payload: SortMoviesPayload): SortMovies => ({
+export const sortMovies = ({ sortBy }: SortMoviesPayload) => ({
   type: ActionNames.SORT_MOVIES,
-  payload,
+  payload: sortBy,
 });
 
-export const setIsAddMovieDialogVisible = (
-  payload: SetIsAddMovieDialogVisiblePayload
-): SetIsAddMovieDialogVisible => ({
+export const setIsAddMovieDialogVisible = ({
+  isAddMovieDialogVisible,
+}: SetIsAddMovieDialogVisiblePayload) => ({
   type: ActionNames.SET_IS_ADD_MOVIE_DIALOG_VISIBLE,
-  payload,
+  payload: isAddMovieDialogVisible,
 });
 
-export const setMovieToEdit = (
-  payload: SetMovieToEditOrViewPayload
-): SetMovieToEditOrView => ({
+export const setMovieToEdit = ({ movie }: SetMovieToEditOrViewPayload) => ({
   type: ActionNames.SET_MOVIE_TO_EDIT,
-  payload,
+  payload: movie,
 });
 
-export const setMovieToView = (
-  payload: SetMovieToEditOrViewPayload
-): SetMovieToEditOrView => {
+export const setMovieToView = ({ movie }: SetMovieToEditOrViewPayload) => {
   return {
     type: ActionNames.SET_MOVIE_TO_VIEW,
-    payload,
+    payload: movie,
   };
 };
+
+export const setMovieToDelete = ({ movie }: SetMovieToEditOrViewPayload) => ({
+  type: ActionNames.SET_MOVIE_TO_DELETE,
+  payload: movie,
+});

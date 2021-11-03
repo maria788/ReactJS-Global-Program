@@ -1,5 +1,5 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getYearFromDateString, Movie } from "@utils";
 import {
   MovieCardContainer,
@@ -10,45 +10,25 @@ import {
 } from "./MovieCard.styles";
 import { DropdownMenu } from "../DropdownMenu";
 import { FALLBACK_IMG_SRC } from "@utils/constants";
-import { setMovieToEdit, setMovieToView } from "@store/actions";
 import {
-  SetMovieToEditOrView,
-  SetMovieToEditOrViewPayload,
-} from ".@store/interfaces";
+  setMovieToDelete,
+  setMovieToEdit,
+  setMovieToView,
+} from "@store/actions";
 
 interface MovieCardProps {
   movie: Movie;
-  setMovieToDelete: (movieToEdit: Movie) => void;
-  setMovieToView: (
-    payload: SetMovieToEditOrViewPayload
-  ) => SetMovieToEditOrView;
-  setMovieToEdit: (
-    payload: SetMovieToEditOrViewPayload
-  ) => SetMovieToEditOrView;
 }
 
-export const MovieCardComponent = ({
-  movie,
-  setMovieToDelete,
-  setMovieToView,
-  setMovieToEdit,
-}: MovieCardProps) => {
+export const MovieCard = ({ movie }: MovieCardProps) => {
+  const dispatch = useDispatch();
   const { title, genres, release_date, poster_path } = movie;
   const year = getYearFromDateString(release_date);
   const [imageSrc, setImageSrc] = React.useState(poster_path);
 
-  const handleEdit = React.useCallback(() => {
-    setMovieToEdit({ movie });
-  }, [movie]);
-
-  const handleDelete = React.useCallback(() => {
-    setMovieToDelete(movie);
-  }, [movie]);
-
-  const handleView = React.useCallback(() => {
-    setMovieToView({ movie });
-  }, [movie]);
-
+  const handleEdit = () => dispatch(setMovieToEdit({ movie }));
+  const handleDelete = () => dispatch(setMovieToDelete({ movie }));
+  const handleView = () => dispatch(setMovieToView({ movie }));
   const handleImageError = () => setImageSrc(FALLBACK_IMG_SRC);
 
   return (
@@ -72,10 +52,3 @@ export const MovieCardComponent = ({
     </MovieCardContainer>
   );
 };
-
-const mapDispatchToProps = {
-  setMovieToView,
-  setMovieToEdit,
-};
-
-export const MovieCard = connect(null, mapDispatchToProps)(MovieCardComponent);

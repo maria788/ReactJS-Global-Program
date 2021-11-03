@@ -4,7 +4,6 @@ import { MoviesActions } from "./interfaces";
 import { initialState } from "./data";
 
 const fetcherReducer = (state = initialState, action: MoviesActions) => {
-  console.log(action);
   switch (action.type) {
     case ActionNames.FETCH_MOVIES_REQUEST:
       return { ...state, loading: true };
@@ -12,7 +11,7 @@ const fetcherReducer = (state = initialState, action: MoviesActions) => {
       return {
         ...state,
         loading: false,
-        movies: action.payload.movies,
+        movies: action.payload,
         error: null,
       };
     case ActionNames.FETCH_MOVIES_ERROR:
@@ -20,7 +19,7 @@ const fetcherReducer = (state = initialState, action: MoviesActions) => {
         ...state,
         loading: false,
         movies: [],
-        error: action.payload.error,
+        error: action.payload,
       };
     case ActionNames.FILTER_MOVIES:
       return {
@@ -31,22 +30,27 @@ const fetcherReducer = (state = initialState, action: MoviesActions) => {
     case ActionNames.SORT_MOVIES:
       return {
         ...state,
-        sortBy: action.payload.sortBy,
+        sortBy: action.payload,
       };
     case ActionNames.SET_IS_ADD_MOVIE_DIALOG_VISIBLE:
       return {
         ...state,
-        isAddMovieDialogVisible: action.payload.isAddMovieDialogVisible,
+        isAddMovieDialogVisible: action.payload,
       };
     case ActionNames.SET_MOVIE_TO_EDIT:
       return {
         ...state,
-        movieToEdit: action.payload.movie,
+        movieToEdit: action.payload,
       };
     case ActionNames.SET_MOVIE_TO_VIEW:
       return {
         ...state,
-        movieToView: action.payload.movie,
+        movieToView: action.payload,
+      };
+    case ActionNames.SET_MOVIE_TO_DELETE:
+      return {
+        ...state,
+        movieToDelete: action.payload,
       };
     default:
       return state;

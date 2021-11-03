@@ -10,6 +10,7 @@ export const initialState: MoviesState = {
   isAddMovieDialogVisible: false,
   movieToEdit: null,
   movieToView: null,
+  movieToDelete: null,
   sortBy: "release_date",
 };
 
@@ -22,4 +23,5 @@ export const ActionNames = {
   SET_IS_ADD_MOVIE_DIALOG_VISIBLE: "SET_IS_ADD_MOVIE_DIALOG_VISIBLE",
   SET_MOVIE_TO_EDIT: "SET_MOVIE_TO_EDIT",
   SET_MOVIE_TO_VIEW: "SET_MOVIE_TO_VIEW",
+  SET_MOVIE_TO_DELETE: "SET_MOVIE_TO_DELETE",
 };

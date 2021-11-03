@@ -1,35 +1,25 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Select, Option } from "./MoviesSort.styles";
-import { MoviesState, SortMovies, SortMoviesPayload } from "@store/interfaces";
 import { sortMovies } from "@store/actions";
+import { RootState } from "@store/reducers";
 
-interface MoviesSortProps extends Partial<MoviesState> {
-  sortMovies: (payload: SortMoviesPayload) => SortMovies;
-}
+export const MoviesSort = () => {
+  const dispatch = useDispatch();
+  const sortBy = useSelector(
+    ({ moviesState }: RootState) => moviesState.sortBy
+  );
 
-const MoviesSortComponent = ({ sortBy, sortMovies }: MoviesSortProps) => (
-  <div>
-    sort by
-    <Select
-      value={sortBy}
-      onChange={(e) => sortMovies({ sortBy: e.target.value })}
-    >
-      <Option value="release_date">Release Date</Option>
-      <Option value="vote_average">Rating</Option>
-    </Select>
-  </div>
-);
-
-const mapStateToProps = ({ moviesState }: { moviesState: MoviesState }) => ({
-  sortBy: moviesState.sortBy,
-});
-
-const mapDispatchToProps = {
-  sortMovies,
+  return (
+    <div>
+      sort by
+      <Select
+        value={sortBy}
+        onChange={(e) => dispatch(sortMovies({ sortBy: e.target.value }))}
+      >
+        <Option value="release_date">Release Date</Option>
+        <Option value="vote_average">Rating</Option>
+      </Select>
+    </div>
+  );
 };
-
-export const MoviesSort = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MoviesSortComponent);

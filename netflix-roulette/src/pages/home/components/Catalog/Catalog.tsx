@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   GenresTabs,
   MoviesList,
@@ -7,23 +7,15 @@ import {
   DeleteMovieDialog,
 } from "./components";
 import { CatalogContainer, FiltersContainer } from "./Catalog.styles";
-import { Movie } from "@utils/interface";
 
-export const Catalog = () => {
-  const [movieToDelete, setMovieToDelete] = useState<Movie>(null);
-
-  return (
-    <CatalogContainer>
-      <FiltersContainer>
-        <GenresTabs />
-        <MoviesSort />
-      </FiltersContainer>
-      <ResultCount />
-      <MoviesList setMovieToDelete={setMovieToDelete} />
-      <DeleteMovieDialog
-        movieToDelete={movieToDelete}
-        setMovieToDelete={setMovieToDelete}
-      />
-    </CatalogContainer>
-  );
-};
+export const Catalog = () => (
+  <CatalogContainer>
+    <FiltersContainer>
+      <GenresTabs />
+      <MoviesSort />
+    </FiltersContainer>
+    <ResultCount />
+    <MoviesList />
+    <DeleteMovieDialog />
+  </CatalogContainer>
+);

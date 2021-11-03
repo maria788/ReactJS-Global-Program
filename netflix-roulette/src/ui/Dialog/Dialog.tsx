@@ -10,15 +10,17 @@ interface DialogProps {
   height: number;
   handleDialogClose: any;
   children: React.ReactNode;
+  onSubmit?: (e?: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export const Dialog = ({
   width,
   height,
   handleDialogClose,
+  onSubmit,
   children,
 }: DialogProps) => (
-  <DialogContainer>
+  <DialogContainer onSubmit={onSubmit}>
     <DialogComponent width={width} height={height}>
       <CloseDialogButton onClick={handleDialogClose}>X</CloseDialogButton>
       {children}

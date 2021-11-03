@@ -1,12 +1,23 @@
 import "@babel/polyfill";
 import { all, call, put, takeLatest, fork } from "redux-saga/effects";
-import { fetchMoviesFailure, fetchMoviesSuccess } from "./actions";
+import {
+  addEditMovieError,
+  addEditMovieSuccess,
+  deleteMovieError,
+  deleteMovieSuccess,
+  fetchMoviesError,
+  fetchMoviesRequest,
+  fetchMoviesSuccess,
+} from "./actions";
 import {
   getMovies,
   getFilteredAndSortedMovies,
   getSortedMovies,
+  addMovie,
+  editMovie,
+  deleteMovie,
 } from "./movies.api";
-import { ActionNames } from "./data";
+import { MoviesActionNames } from "./data";
 import { GenreType } from "@utils/constants";
 import { Movie } from "@utils/interface";
 import { AxiosResponse } from "axios";
@@ -23,7 +34,7 @@ function* fetchMoviesSaga() {
     );
   } catch (e) {
     yield put(
-      fetchMoviesFailure({
+      fetchMoviesError({
         error: e.message,
       })
     );
@@ -49,7 +60,7 @@ function* fetchFilteredAndSortedMoviesSaga(action: MoviesActions) {
     );
   } catch (e) {
     yield put(
-      fetchMoviesFailure({
+      fetchMoviesError({
         error: e.message,
       })
     );
@@ -72,7 +83,52 @@ function* sortMoviesSaga(action: MoviesActions) {
     );
   } catch (e) {
     yield put(
-      fetchMoviesFailure({
+      fetchMoviesError({
+        error: e.message,
+      })
+    );
+  }
+}
+
+function* addMovieSaga(action: MoviesActions) {
+  try {
+    yield call(addMovie, action.payload.movie);
+
+    yield put(addEditMovieSuccess());
+    yield put(fetchMoviesRequest());
+  } catch (e) {
+    yield put(
+      addEditMovieError({
+        error: e.message,
+      })
+    );
+  }
+}
+
+function* editMovieSaga(action: MoviesActions) {
+  try {
+    yield call(editMovie, action.payload.movie);
+
+    yield put(addEditMovieSuccess());
+    yield put(fetchMoviesRequest());
+  } catch (e) {
+    yield put(
+      addEditMovieError({
+        error: e.message,
+      })
+    );
+  }
+}
+
+function* deleteMovieSaga(action: MoviesActions) {
+  try {
+    yield call(deleteMovie, action.payload.movieId);
+
+    yield put(deleteMovieSuccess());
+    yield put(fetchMoviesRequest());
+  } catch (e) {
+    yield put(
+      deleteMovieError({
         error: e.message,
       })
     );
@@ -81,9 +137,15 @@ function* sortMoviesSaga(action: MoviesActions) {
 
 function* moviesSaga() {
   yield all([
-    takeLatest(ActionNames.FETCH_MOVIES_REQUEST, fetchMoviesSaga),
-    takeLatest(ActionNames.FILTER_MOVIES, fetchFilteredAndSortedMoviesSaga),
-    takeLatest(ActionNames.SORT_MOVIES, sortMoviesSaga),
+    takeLatest(MoviesActionNames.FETCH_MOVIES_REQUEST, fetchMoviesSaga),
+    takeLatest(
+      MoviesActionNames.FILTER_MOVIES,
+      fetchFilteredAndSortedMoviesSaga
+    ),
+    takeLatest(MoviesActionNames.SORT_MOVIES, sortMoviesSaga),
+    takeLatest(MoviesActionNames.ADD_MOVIE, addMovieSaga),
+    takeLatest(MoviesActionNames.EDIT_MOVIE, editMovieSaga),
+    takeLatest(MoviesActionNames.DELETE_MOVIE, deleteMovieSaga),
   ]);
 }
 

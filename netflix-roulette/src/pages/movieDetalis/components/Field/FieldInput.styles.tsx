@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const FieldInputContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `;
@@ -61,4 +62,11 @@ export const Select = styled.select`
     outline: none;
     border: 1px solid ${(props) => props.theme.palette.white};
   }
+`;
+
+export const ErrorMessage = styled.span`
+  position: absolute;
+  bottom: 12px;
+  font-size: 12px;
+  color: ${(props) => props.theme.palette.red};
 `;

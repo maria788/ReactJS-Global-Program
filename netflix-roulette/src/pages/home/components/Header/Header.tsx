@@ -7,7 +7,7 @@ import { RootState } from "@store/reducers";
 
 export const Header = () => {
   const movieToView = useSelector(
-    ({ moviesState }: RootState) => moviesState.movieToView
+    ({ appState }: RootState) => appState.movieToView
   );
 
   return (

@@ -6,6 +6,7 @@ export interface Theme {
     lightGrey: string;
     light: string;
     red: string;
+    lightRed: string;
   };
   fontSize: string;
   borderRadius: string;
@@ -19,6 +20,7 @@ export const theme: Theme = {
     lightGrey: "#555555",
     light: "#979797",
     red: "#f65261",
+    lightRed: "#fd757f",
   },
   fontSize: "20px",
   borderRadius: "4px",

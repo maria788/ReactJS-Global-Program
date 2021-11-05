@@ -9,10 +9,6 @@ export interface Action {
   type: string;
 }
 
-export interface Error extends Action {
-  payload: ErrorPayload;
-}
-
 interface AppState {
   loading: boolean;
   movies: Movie[];
@@ -26,15 +22,9 @@ interface AppState {
 
 export interface MoviesState extends AppState {
   movieToEdit: Movie | null;
-  movieToView: Movie | null;
-}
-
-interface MoviesActionsPayload extends AppState {
-  movie: Movie | null;
-  movieId: number;
 }
 
 export interface MoviesActions {
   type: string;
-  payload: MoviesActionsPayload;
+  payload: any;
 }

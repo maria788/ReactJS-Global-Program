@@ -1,19 +1,22 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { MovieCard } from "./MovieCard";
 import { MoviesListContainer } from "./MoviesList.styles";
-import { fetchMoviesRequest } from "@store/actions";
 import { RootState } from "@store/reducers";
+import { useGetMovies, useMoviesSearchParams } from "@hooks";
+import { useSearchParams } from "react-router-dom";
 
 export const MoviesList = () => {
+  const [searchParams] = useSearchParams();
   const { loading, movies, error } = useSelector(
     ({ moviesState }: RootState) => moviesState
   );
-  const dispatch = useDispatch();
+  const { searchQuery, genre, sortBy } = useMoviesSearchParams(searchParams);
+  const getMovies = useGetMovies();
 
   React.useEffect(() => {
-    dispatch(fetchMoviesRequest());
-  }, []);
+    getMovies();
+  }, [searchQuery, genre, sortBy]);
 
   if (loading) {
     return <>Loading....</>;

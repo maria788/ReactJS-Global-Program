@@ -1,16 +1,23 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { GENRES } from "@utils";
 import { Tabs, Tab } from "./GenresTabs.styles";
 import { GenreType } from "@utils/constants";
-import { filterMovies } from "@store/actions";
-import { RootState } from "@store/reducers";
+import { useSearchParams } from "react-router-dom";
+import { useMoviesSearchParams } from "@hooks";
 
 export const GenresTabs = () => {
-  const { selectedGenre, searchText } = useSelector(
-    ({ moviesState }: RootState) => moviesState
-  );
-  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const moviesSearchParams = useMoviesSearchParams(searchParams);
+  const selectedGenre = moviesSearchParams.genre || GenreType.ALL;
+
+  const handleGenreChange = (selectedGenre: GenreType) => {
+    if (selectedGenre === GenreType.ALL) {
+      const { genre, ...data } = moviesSearchParams;
+      setSearchParams(data);
+    } else {
+      setSearchParams({ ...moviesSearchParams, genre: selectedGenre });
+    }
+  };
 
   return (
     <Tabs>
@@ -18,9 +25,7 @@ export const GenresTabs = () => {
         <Tab
           key={genre}
           isSelected={selectedGenre === genre}
-          onClick={() =>
-            dispatch(filterMovies({ selectedGenre: genre, searchText }))
-          }
+          onClick={() => handleGenreChange(genre)}
         >
           {genre}
         </Tab>

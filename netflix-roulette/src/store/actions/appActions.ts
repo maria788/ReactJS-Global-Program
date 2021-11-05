@@ -1,41 +1,25 @@
 import {
-  SetIsAddMovieDialogVisible,
   SetIsAddMovieDialogVisiblePayload,
   SetMovieToEditOrViewPayload,
-  SetMovieToEditOrView,
   DeleteMoviePayload,
-  DeleteMovie,
 } from "../interfaces";
 import { AppActionNames } from "@store/data";
 
-export const setIsAddMovieDialogVisible = (
-  payload: SetIsAddMovieDialogVisiblePayload
-): SetIsAddMovieDialogVisible => ({
+export const setIsAddMovieDialogVisible = ({
+  isAddMovieDialogVisible,
+}: SetIsAddMovieDialogVisiblePayload) => ({
   type: AppActionNames.SET_IS_ADD_MOVIE_DIALOG_VISIBLE,
-  payload,
+  payload: isAddMovieDialogVisible,
 });
 
-export const setMovieToEdit = (
-  payload: SetMovieToEditOrViewPayload
-): SetMovieToEditOrView => ({
+export const setMovieToEdit = ({ movie }: SetMovieToEditOrViewPayload) => ({
   type: AppActionNames.SET_MOVIE_TO_EDIT,
-  payload,
+  payload: movie,
 });
 
-export const setMovieToView = (
-  payload: SetMovieToEditOrViewPayload
-): SetMovieToEditOrView => {
-  return {
-    type: AppActionNames.SET_MOVIE_TO_VIEW,
-    payload,
-  };
-};
-
-export const setMovieIdToDelete = (
-  payload: DeleteMoviePayload
-): DeleteMovie => {
+export const setMovieIdToDelete = ({ movieId }: DeleteMoviePayload) => {
   return {
     type: AppActionNames.SET_MOVIE_ID_TO_DELETE,
-    payload,
+    payload: movieId,
   };
 };

@@ -35,6 +35,7 @@ module.exports = (env, argv) => {
       port: 4200,
       hot: true,
       open: true,
+      historyApiFallback: true,
     },
     resolve: {
       extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -42,6 +43,7 @@ module.exports = (env, argv) => {
         "@utils": path.resolve(__dirname, "src/utils"),
         "@ui": path.resolve(__dirname, "src/ui"),
         "@store": path.resolve(__dirname, "src/store"),
+        "@hooks": path.resolve(__dirname, "src/hooks"),
       },
     },
     module: {

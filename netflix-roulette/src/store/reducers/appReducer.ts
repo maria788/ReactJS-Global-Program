@@ -7,22 +7,17 @@ export const appReducer = (state = appInitialState, action: MoviesActions) => {
     case AppActionNames.SET_IS_ADD_MOVIE_DIALOG_VISIBLE:
       return {
         ...state,
-        isAddMovieDialogVisible: action.payload.isAddMovieDialogVisible,
+        isAddMovieDialogVisible: action.payload,
       };
     case AppActionNames.SET_MOVIE_TO_EDIT:
       return {
         ...state,
-        movieToEdit: action.payload.movie,
-      };
-    case AppActionNames.SET_MOVIE_TO_VIEW:
-      return {
-        ...state,
-        movieToView: action.payload.movie,
+        movieToEdit: action.payload,
       };
     case AppActionNames.SET_MOVIE_ID_TO_DELETE:
       return {
         ...state,
-        movieIdToDelete: action.payload.movieId,
+        movieIdToDelete: action.payload,
       };
     case MoviesActionNames.DELETE_MOVIE_SUCCESS:
     case MoviesActionNames.DELETE_MOVIE_ERROR:

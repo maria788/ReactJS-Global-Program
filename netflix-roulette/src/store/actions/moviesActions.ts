@@ -1,58 +1,39 @@
 import {
-  Error,
   ErrorPayload,
-  FetchMoviesRequest,
-  FetchMoviesSuccess,
   FetchMoviesSuccessPayload,
-  FilterMovies,
-  FilterMoviesPayload,
-  SortMoviesPayload,
-  SortMovies,
   AddOrEditMoviePayload,
-  AddOrEditMovie,
   DeleteMoviePayload,
-  DeleteMovie,
   Action,
+  FetchMoviesPayload,
 } from "../interfaces";
 import { MoviesActionNames } from "@store/data";
 
-export const fetchMoviesRequest = (): FetchMoviesRequest => ({
+export const fetchMoviesRequest = (payload?: FetchMoviesPayload) => ({
   type: MoviesActionNames.FETCH_MOVIES_REQUEST,
+  payload,
 });
 
-export const fetchMoviesSuccess = (
-  payload: FetchMoviesSuccessPayload
-): FetchMoviesSuccess => ({
+export const fetchMoviesSuccess = ({ movies }: FetchMoviesSuccessPayload) => ({
   type: MoviesActionNames.FETCH_MOVIES_SUCCESS,
-  payload,
+  payload: movies,
 });
 
-export const fetchMoviesError = (payload: ErrorPayload): Error => ({
+export const requestError = ({ error }: ErrorPayload) => ({
   type: MoviesActionNames.FETCH_MOVIES_ERROR,
-  payload,
+  payload: error,
 });
 
-export const filterMovies = (payload: FilterMoviesPayload): FilterMovies => ({
-  type: MoviesActionNames.FILTER_MOVIES,
-  payload,
-});
-
-export const sortMovies = (payload: SortMoviesPayload): SortMovies => ({
-  type: MoviesActionNames.SORT_MOVIES,
-  payload,
-});
-
-export const addMovie = (payload: AddOrEditMoviePayload): AddOrEditMovie => {
+export const addMovie = ({ movie }: AddOrEditMoviePayload) => {
   return {
     type: MoviesActionNames.ADD_MOVIE,
-    payload,
+    payload: movie,
   };
 };
 
-export const editMovie = (payload: AddOrEditMoviePayload): AddOrEditMovie => {
+export const editMovie = ({ movie }: AddOrEditMoviePayload) => {
   return {
     type: MoviesActionNames.EDIT_MOVIE,
-    payload,
+    payload: movie,
   };
 };
 
@@ -60,27 +41,15 @@ export const addEditMovieSuccess = (): Action => ({
   type: MoviesActionNames.ADD_EDIT_MOVIE_SUCCESS,
 });
 
-export const addEditMovieError = (payload: ErrorPayload): Error => ({
-  type: MoviesActionNames.ADD_EDIT_MOVIE_ERROR,
-  payload,
-});
-
-export const deleteMovie = (payload: DeleteMoviePayload): DeleteMovie => {
+export const deleteMovie = ({ movieId }: DeleteMoviePayload) => {
   return {
     type: MoviesActionNames.DELETE_MOVIE,
-    payload,
+    payload: movieId,
   };
 };
 
 export const deleteMovieSuccess = (): Action => {
   return {
     type: MoviesActionNames.DELETE_MOVIE_SUCCESS,
-  };
-};
-
-export const deleteMovieError = (payload: ErrorPayload): Error => {
-  return {
-    type: MoviesActionNames.DELETE_MOVIE_ERROR,
-    payload,
   };
 };

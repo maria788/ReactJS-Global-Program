@@ -1,40 +1,43 @@
 import axios from "axios";
 import { Movie } from "@utils/interface";
+import { FetchMoviesPayload } from "@store/interfaces";
+import { GenreType, MovieToFieldName } from "@utils/constants";
 
 const rootUrl = "http://localhost:4000/";
-
-interface FilteredAndSortedMoviesParams {
-  search: string;
-  filter?: string;
-}
-
-interface SortedMoviesParams {
-  sortBy: string;
-}
 
 const instance = axios.create({
   baseURL: rootUrl,
 });
 
-const { get: getMovieData, post: postMovieData, put: putMovieData, delete: deleteMovieData } = instance;
+const {
+  get: getMovieData,
+  post: postMovieData,
+  put: putMovieData,
+  delete: deleteMovieData,
+} = instance;
 
-export const getMovies = () => getMovieData("movies");
+export const getMoviesWithParams = (paramsData: FetchMoviesPayload) => {
+  const {
+    sortBy = MovieToFieldName.RELEASE_DATE,
+    selectedGenre = GenreType.ALL,
+    searchText = "",
+  } = paramsData || {};
 
-export const getFilteredAndSortedMovies = (
-  paramsData: FilteredAndSortedMoviesParams
-) =>
-  getMovieData("movies", {
-    params: { ...paramsData, searchBy: "title" },
+  const params = {
+    sortBy,
+    sortOrder: "desk",
+    ...(selectedGenre !== GenreType.ALL && { filter: selectedGenre }),
+    ...(searchText && { search: searchText, searchBy: "title" }),
+  };
+
+  return getMovieData("movies", {
+    params,
   });
-
-export const getSortedMovies = (paramsData: SortedMoviesParams) =>
-  getMovieData("movies", {
-    params: { sortOrder: "desk", ...paramsData },
-  });
+};
 
 export const addMovie = (movie: Movie) => postMovieData("movies", movie);
 
 export const editMovie = (movie: Movie) => putMovieData("movies", movie);
 
 export const deleteMovie = (movieId: number) =>
-    deleteMovieData("movies/" + movieId);
+  deleteMovieData("movies/" + movieId);

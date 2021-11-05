@@ -8,12 +8,18 @@ export const moviesReducer = (
 ) => {
   switch (action.type) {
     case MoviesActionNames.FETCH_MOVIES_REQUEST:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true,
+        searchText: action.payload?.searchText,
+        selectedGenre: action.payload?.selectedGenre,
+        sortBy: action.payload?.sortBy,
+      };
     case MoviesActionNames.FETCH_MOVIES_SUCCESS:
       return {
         ...state,
         loading: false,
-        movies: action.payload.movies,
+        movies: action.payload,
         error: null,
       };
     case MoviesActionNames.FETCH_MOVIES_ERROR:
@@ -21,29 +27,18 @@ export const moviesReducer = (
         ...state,
         loading: false,
         movies: [],
-        error: action.payload.error,
-      };
-    case MoviesActionNames.FILTER_MOVIES:
-      return {
-        ...state,
-        searchText: action.payload.searchText,
-        selectedGenre: action.payload.selectedGenre,
-      };
-    case MoviesActionNames.SORT_MOVIES:
-      return {
-        ...state,
-        sortBy: action.payload.sortBy,
+        error: action.payload,
       };
     case MoviesActionNames.ADD_MOVIE:
     case MoviesActionNames.EDIT_MOVIE:
       return {
         ...state,
-        movie: action.payload.movie,
+        movie: action.payload,
       };
     case MoviesActionNames.DELETE_MOVIE:
       return {
         ...state,
-        movieId: action.payload.movieId,
+        movieId: action.payload,
       };
     default:
       return state;

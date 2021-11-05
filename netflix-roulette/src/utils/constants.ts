@@ -24,3 +24,10 @@ export enum ErrorMessage {
   REQUIRED = "Required",
   NOT_VALID = "Not valid",
 }
+
+export enum SearchParams {
+  SEARCH_QUERY = "searchQuery",
+  GENRE = "genre",
+  SORT_BY = "sortBy",
+  MOVIE_ID = "movieId",
+}

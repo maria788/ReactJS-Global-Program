@@ -10,11 +10,9 @@ import {
 } from "./MovieCard.styles";
 import { DropdownMenu } from "../DropdownMenu";
 import { FALLBACK_IMG_SRC } from "@utils/constants";
-import {
-  setMovieIdToDelete,
-  setMovieToEdit,
-  setMovieToView,
-} from "@store/actions";
+import { setMovieIdToDelete, setMovieToEdit } from "@store/actions";
+import { useSearchParams } from "react-router-dom";
+import { useMoviesSearchParams } from "@hooks";
 
 interface MovieCardProps {
   movie: Movie;
@@ -25,10 +23,14 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
   const { title, genres, release_date, poster_path } = movie;
   const year = getYearFromDateString(release_date);
   const [imageSrc, setImageSrc] = React.useState(poster_path);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const moviesSearchParams = useMoviesSearchParams(searchParams);
 
   const handleEdit = () => dispatch(setMovieToEdit({ movie }));
-  const handleDelete = () => dispatch(setMovieIdToDelete({ movieId: movie.id }));
-  const handleView = () => dispatch(setMovieToView({ movie }));
+  const handleDelete = () =>
+    dispatch(setMovieIdToDelete({ movieId: movie.id }));
+  const handleView = () =>
+    setSearchParams({ ...moviesSearchParams, movieId: movie.id });
   const handleImageError = () => setImageSrc(FALLBACK_IMG_SRC);
 
   return (

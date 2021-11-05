@@ -1,17 +1,23 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { AppLogo } from "@ui/AppLogo";
 import { Movie } from "@utils/interface";
 import { MovieVew } from "../MovieVew";
 import { TopPanel } from "../../Header.styles";
-import { setMovieToView } from "@store/actions";
+import { useMoviesSearchParams } from "@hooks";
 
 interface MoviePanelProps {
   movie: Movie;
 }
 
 export const MoviePanel = ({ movie }: MoviePanelProps) => {
-  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const moviesSearchParams = useMoviesSearchParams(searchParams);
+
+  const handleClose = () => {
+    const { movieId, ...data } = moviesSearchParams;
+    setSearchParams(data);
+  };
 
   return (
     <>
@@ -22,7 +28,7 @@ export const MoviePanel = ({ movie }: MoviePanelProps) => {
           width={29}
           height={30}
           alt="Search Button"
-          onClick={() => dispatch(setMovieToView({ movie: null }))}
+          onClick={handleClose}
         />
       </TopPanel>
       <MovieVew movie={movie} />

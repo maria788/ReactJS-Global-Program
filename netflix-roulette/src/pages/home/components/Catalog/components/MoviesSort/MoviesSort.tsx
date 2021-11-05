@@ -1,24 +1,31 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import { Select, Option } from "./MoviesSort.styles";
-import { sortMovies } from "@store/actions";
-import { RootState } from "@store/reducers";
+import { useMoviesSearchParams } from "@hooks";
+import { MovieToFieldName } from "@utils/constants";
 
 export const MoviesSort = () => {
-  const dispatch = useDispatch();
-  const sortBy = useSelector(
-    ({ moviesState }: RootState) => moviesState.sortBy
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const moviesSearchParams = useMoviesSearchParams(searchParams);
+
+  const handleSorting = (sortBy: string) => {
+    if (sortBy) {
+      setSearchParams({ ...moviesSearchParams, sortBy });
+    } else {
+      const { sortBy, ...data } = moviesSearchParams;
+      setSearchParams(data);
+    }
+  };
 
   return (
     <div>
       sort by
       <Select
-        value={sortBy}
-        onChange={(e) => dispatch(sortMovies({ sortBy: e.target.value }))}
+        value={moviesSearchParams.sortBy}
+        onChange={(e) => handleSorting(e.target.value)}
       >
-        <Option value="release_date">Release Date</Option>
-        <Option value="vote_average">Rating</Option>
+        <Option value={MovieToFieldName.RELEASE_DATE}>Release Date</Option>
+        <Option value={MovieToFieldName.TITLE}>Title</Option>
       </Select>
     </div>
   );

@@ -1,6 +1,5 @@
 import { MoviesActions } from "../interfaces";
-import { AppActionNames, MoviesActionNames } from "../data";
-import { appInitialState } from "@store/data/appData";
+import { appInitialState, AppActionNames, MoviesActionNames } from "../data";
 
 export const appReducer = (state = appInitialState, action: MoviesActions) => {
   switch (action.type) {

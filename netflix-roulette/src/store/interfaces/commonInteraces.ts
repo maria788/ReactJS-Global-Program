@@ -26,5 +26,5 @@ export interface MoviesState extends AppState {
 
 export interface MoviesActions {
   type: string;
-  payload: any;
+  payload?: any;
 }

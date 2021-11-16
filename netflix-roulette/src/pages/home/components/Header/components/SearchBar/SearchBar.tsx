@@ -35,6 +35,7 @@ export const SearchBar = () => {
           placeholder="What do you want to watch?"
           onChange={handleInputChange}
           value={inputValue}
+          aria-label="searchInput"
         />
         <Button onClick={handleSearch}>Search</Button>
       </div>

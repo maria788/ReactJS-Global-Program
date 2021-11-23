@@ -49,7 +49,7 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.ts(x?)$/,
+          test: /\.ts(x?)|.js$/,
           exclude: /node_modules/,
           use: [
             {
